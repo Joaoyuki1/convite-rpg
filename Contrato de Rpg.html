@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite Ordem</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #050505;
+            color: white;
+            font-family: sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        #principal, #sucesso {
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .imagem-principal {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid #333;
+        }
+
+        /* Container dos botões lado a lado */
+        .botoes-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Espaço entre os botões */
+            position: relative;
+            height: 60px;
+            align-items: center;
+        }
+
+        button {
+            width: 100px;
+            height: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /* O botão NÃO precisa de position absolute para fugir pelo site todo */
+        #btn-nao {
+            position: absolute;
+            left: calc(50% + 10px); /* Alinhado ao lado do Sim inicialmente */
+            transition: 0.1s; /* Pequena suavidade no movimento */
+        }
+
+        #btn-sim {
+            position: absolute;
+            right: calc(50% + 10px); /* Alinhado ao lado do Não inicialmente */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #sucesso img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        #sucesso h3 {
+            margin-top: 20px;
+            font-size: 1.8rem;
+            color: #ff0000; /* Cor de Ordem */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="principal">
+        <h2>Aceita participar de uma mesa de RPG de Ordem?</h2>
+        <img class="imagem-principal" src="https://i.pinimg.com/1200x/a5/2d/7f/a52d7fa576037400baef004ca26a1a13.jpg">
+        
+        <div class="botoes-container">
+            <button id="btn-sim" onclick="aceitou()">Sim</button>
+            <button id="btn-nao" onmouseover="foge()" ontouchstart="foge()">Não</button>
+        </div>
+    </div>
+
+    <div id="sucesso" class="hidden">
+        <img src="https://i.pinimg.com/736x/3d/79/72/3d7972a08f46cc07f770e99f87e69214.jpg">
+        <h3>Aceitou? Caralho!!</h3>
+    </div>
+
+    <script>
+        function aceitou() {
+            document.getElementById('principal').classList.add('hidden');
+            document.getElementById('sucesso').classList.remove('hidden');
+        }
+
+        function foge() {
+            const btn = document.getElementById('btn-nao');
+            
+            // Largura e altura da tela descontando o tamanho do botão
+            const larguraMax = window.innerWidth - btn.offsetWidth;
+            const alturaMax = window.innerHeight - btn.offsetHeight;
+
+            // Gera posição aleatória em qualquer lugar da tela
+            const aleatorioX = Math.floor(Math.random() * larguraMax);
+            const aleatorioY = Math.floor(Math.random() * alturaMax);
+
+            btn.style.left = aleatorioX + 'px';
+            btn.style.top = aleatorioY + 'px';
+            btn.style.position = 'fixed'; // Faz ele flutuar sobre tudo
+        }
+    </script>
+</body>
+</html>
